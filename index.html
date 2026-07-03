@@ -34,7 +34,7 @@
     }
 
     body {
-      background: transparent;
+      background: transparent; /* Baseline transparent, JS overrides for Notion */
       color: var(--fg);
       display: flex;
       align-items: center;
@@ -628,6 +628,14 @@
       app.classList.remove("theme-light", "theme-dark");
       app.classList.add(effective === "dark" ? "theme-dark" : "theme-light");
       themeToggle.textContent = effective === "dark" ? "☀️" : "🌙";
+
+      // --- Notion Background Fix ---
+      try {
+        document.body.style.background = effective === "dark" ? '#191919' : '#ffffff';
+        document.body.style.transition = 'background 0.3s ease';
+      } catch (e) {
+        document.body.style.background = '#ffffff';
+      }
     }
 
     function syncThemeWithSystem() {
